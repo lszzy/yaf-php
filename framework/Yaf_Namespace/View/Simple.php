@@ -258,12 +258,15 @@ class Simple implements \Yaf\View_Interface
      */
     protected function _script($name)
     {
-        if (preg_match('#\.\.[\\\/]#', $name)) {
-            throw new \Yaf\Exception(
-                'Requested scripts may not include parent '.
-                'directory traversal ("../", "..\\" notation)'
-            );
-        }
+        /********************lszzy/yaf-php>>********************/
+        //do nothing for now as Yaf is doing the same
+        //if (preg_match('#\.\.[\\\/]#', $name)) {
+        //    throw new \Yaf\Exception(
+        //        'Requested scripts may not include parent '.
+        //        'directory traversal ("../", "..\\" notation)'
+        //    );
+        //}
+        /********************lszzy/yaf-php<<********************/
         if ($this->_tpl_dir == '') {
             throw new \Yaf\Exception\LoadFailed\View(
                 'Could not determine the view script path, '.

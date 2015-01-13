@@ -17,6 +17,13 @@ abstract class Action_Abstract extends Controller_Abstract
 
     }
 
+    /********************lszzy/yaf-php<<********************/
+    public function setController(Controller_Abstract $controller)
+    {
+        $this->_controller = $controller;
+    }
+    /********************lszzy/yaf-php>>********************/
+
     public function getController()
     {
         return $this->_controller;

@@ -11,6 +11,13 @@ abstract class Yaf_Action_Abstract extends Yaf_Controller_Abstract
 
     }
 
+    /********************lszzy/yaf-php<<********************/
+    public function setController(Yaf_Controller_Abstract $controller)
+    {
+        $this->_controller = $controller;
+    }
+    /********************lszzy/yaf-php>>********************/
+
     public function getController()
     {
         return $this->_controller;

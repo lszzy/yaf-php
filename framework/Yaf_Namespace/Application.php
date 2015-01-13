@@ -41,6 +41,16 @@ class Application
         }
         $this->_environ = $env;
 
+        /********************lszzy/yaf-php<<********************/
+        //fix default environ
+        if ($this->_environ == null) {
+            $this->_environ = G::iniGet('yaf.environ');
+        }
+        //define Yaf\ENVIRON
+        defined('Yaf\ENVIRON') or
+            define('Yaf\ENVIRON', $this->_environ);
+        /********************lszzy/yaf-php>>********************/
+
         $config = $this->_loadConfig($config);
         if (
             $config == null
@@ -231,16 +241,9 @@ class Application
      */
     public function environ()
     {
-        $env = $this->_environ;
-        if ($env == null) {
-            $fromIni = ini_get('yaf.environ');
-            if ($fromIni) {
-                $env = $fromIni;
-            } else {
-                $env = 'product';
-            }
-        }
-        return $env;
+        /********************lszzy/yaf-php<<********************/
+        return $this->_environ;
+        /********************lszzy/yaf-php>>********************/
     }
 
     public function execute($args)

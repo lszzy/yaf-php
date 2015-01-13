@@ -1,4 +1,21 @@
 <?php
+/********************lszzy/yaf-php<<********************/
+/**
+ * yaf gloab definitions
+ */
+define('YAF_VERSION',                   '2.2.9');
+define('YAF_ERR_STARTUP_FAILED',        512);
+define('YAF_ERR_ROUTE_FAILED',          513);
+define('YAF_ERR_DISPATCH_FAILED',       514);
+define('YAF_ERR_AUTOLOAD_FAILED',       520);
+define('YAF_ERR_NOTFOUND_MODULE',       515);
+define('YAF_ERR_NOTFOUND_CONTROLLER',   516);
+define('YAF_ERR_NOTFOUND_ACTION',       517);
+define('YAF_ERR_NOTFOUND_VIEW',         518);
+define('YAF_ERR_CALL_FAILED',           519);
+define('YAF_ERR_TYPE_ERROR',            521);
+/********************lszzy/yaf-php>>********************/
+
 /**
  * added this class to handle all the global options
  * which are available when yaf.so is loaded
@@ -45,7 +62,11 @@ class Yaf_G
 
     public static function iniGet($key)
     {
-        if (($iniValue = ini_get($key))!==false) {
+        /********************lszzy/yaf-php<<********************/
+        //php 5.2 ini_get return '' if not found, fixed by lszzy <admin@lszzy.com>
+        if (($iniValue = ini_get($key))!==false
+            && (phpversion() >= '5.3' || ini_get($key) !== '')) {
+        /********************lszzy/yaf-php>>********************/
             //we have ini set from php
             if ($iniValue == '0') {
                 $value = false;

@@ -4,7 +4,9 @@
  */
 abstract class Yaf_Controller_Abstract
 {
-    public $actions = array();
+    /********************lszzy/yaf-php<<********************/
+    public $actions = null;
+    /********************lszzy/yaf-php>>********************/
     protected $_module;
     protected $_name = '';
 

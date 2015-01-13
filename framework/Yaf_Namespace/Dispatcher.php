@@ -56,7 +56,9 @@ class Dispatcher
     public function autoRender($flag)
     {
         if (!is_bool($flag)) {
-            return ;
+            /********************lszzy/yaf-php<<********************/
+            return $this->_auto_render;
+            /********************lszzy/yaf-php>>********************/
         } else {
             $this->_auto_render = $flag;
         }
@@ -212,11 +214,42 @@ class Dispatcher
                 $plugin->dispatchLoopShutdown($request, $response);
             }
         } catch (\Exception $e) {
-            if ($this->throwException()) {
+            /********************lszzy/yaf-php<<********************/
+            if ($this->catchException()) {
+                //Try load module error controller, do same as Yaf
+                if ($request->getModuleName() != $this->_default_module) {
+                    try {
+                        $request->setControllerName('Error');
+                        $request->setActionName('error');
+                        $request->setParam('exception', $e);
+                        $request->setException($e);
+                        $this->handle($request, $response, $view);
+                    } catch (\Exception $em) {
+                        //do nothing, goto default module
+                    }
+                }
+                //Try load default module error controller, do same as Yaf
+                try {
+                    $request->setModuleName($this->_default_module);
+                    $request->setControllerName("Error");
+                    $request->setActionName('error');
+                    $request->setParam('exception', $e);
+                    $request->setException($e);
+                    $this->handle($request, $response, $view);
+                } catch (\Exception $em) {
+                    //Throw original exception
+                    if ($this->throwException()) {
+                        throw $e;
+                    } else {
+                        Exception::trigger_error($e->getMessage(), E_USER_ERROR);
+                    }
+                }
+            } else if ($this->throwException()) {
                 throw $e;
             } else {
                 Exception::trigger_error($e->getMessage(), E_USER_ERROR);
             }
+            /********************lszzy/yaf-php>>********************/
         }
 
         if ($nested == 0 && !$request->isDispatched()) {
@@ -307,12 +340,21 @@ class Dispatcher
             if (is_bool($ret) && $ret == false) {
                 return true;
             }
+            /********************lszzy/yaf-php<<********************/
         } elseif (
             (
-            $actionController =
+            $actionName =
                 $this->getAction($appDir, $controller, $action, $module)
             ) != null
         ) {
+            $actionController = new $actionName($request, $response, $view);
+            $actionController->setController($controller);
+            if (!($actionController instanceof Action_Abstract)) {
+                throw new Exception\TypeError(
+                    'Action must be an instance of Yaf_Action_Abstract'
+                );
+            }
+            /********************lszzy/yaf-php>>********************/
             //check if not in actions vars we have the action
             $actionMethod = 'execute';
             if (method_exists($actionController, $actionMethod)) {
@@ -355,80 +397,82 @@ class Dispatcher
         $controller = null;
     }
 
+    /********************lszzy/yaf-php<<********************/
     private function getAction(
         $appDir, Controller_Abstract $controller, $action, $module
     )
     {
         $nameSeparator = G::iniGet('yaf.name_separator');
-        if (isset($controller->actions[$action])) {
-            $actionPath = $appDir.DIRECTORY_SEPARATOR.
-                $controller->actions[$action];
-            if (Loader::import($actionPath)) {
-                $actionMethod  = $action.'Action';
-                if (G::iniGet('yaf.name_suffix') == true) {
-                    $classname = $controller . $nameSeparator . 'Action';
+        if (is_array($controller->actions)) {
+            if (isset($controller->actions[$action])) {
+                $actionPath = $appDir.DIRECTORY_SEPARATOR.
+                    $controller->actions[$action];
+                if (Loader::import($actionPath)) {
+                    $actionUpper = $this->_formatName($action);
+                    if (G::iniGet('yaf.name_suffix') == true) {
+                        $classname = $actionUpper . $nameSeparator . 'Action';
+                    } else {
+                        $classname = 'Action' . $nameSeparator . $actionUpper;
+                    }
+                    if (!class_exists($classname, false)) {
+                        throw new Exception\LoadFailed\Action(
+                            'Could not find action '.$classname.
+                            ' in '.$actionPath
+                        );
+                    }
+                    return $classname;
                 } else {
-                    $classname = 'Action' . $nameSeparator . $controller;
-                }
-                if (!class_exists($classname, false)) {
                     throw new Exception\LoadFailed\Action(
-                        'Could not find action '.$classname.
-                        ' in '.$actionPath
+                        'Could not find action script '.$actionPath
                     );
                 }
-                $object = new $classname();
-                if (!($object instanceof Action_Abstract)) {
-                    throw new Exception\TypeError(
-                        'Action '.$classname.
-                        ' must extends from Yaf_Action_Abstract'
-                    );
-                }
-                return $object;
             } else {
                 throw new Exception\LoadFailed\Action(
-                    'Could not find action script '.$actionPath
+                    'There is no method ' . $action . 'Action in ' . get_class($controller). '::$actions'
                 );
             }
         } else {
-            $actionrDir = '';
-            if ($this->_default_module == $module) {
-                $actionrDir = $appDir.DIRECTORY_SEPARATOR.'actions';
-            } else {
-                $actionrDir = $appDir.DIRECTORY_SEPARATOR.'modules'.
-                DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR.'actions';
-            }
-            if (G::iniGet('yaf.name_suffix') == true) {
-                $classname = $controller . $nameSeparator . 'Action';
-            } else {
-                $classname = 'Action' . $nameSeparator . $controller;
-            }
-            if (!class_exists($classname, false)) {
-                if (
+            if (G::iniGet('yaf.st_compatible')) {
+                $actionDir = '';
+                if ($this->_default_module == $module) {
+                    $actionDir = $appDir.DIRECTORY_SEPARATOR.'actions';
+                } else {
+                    $actionDir = $appDir.DIRECTORY_SEPARATOR.'modules'.
+                        DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR.'actions';
+                }
+                $actionUpper = $this->_formatName($action);
+                if (G::iniGet('yaf.name_suffix') == true) {
+                    $classname = $actionUpper . $nameSeparator . 'Action';
+                } else {
+                    $classname = 'Action' . $nameSeparator . $actionUpper;
+                }
+                if (!class_exists($classname, false)) {
+                    if (
                     !Loader::getInstance()->internal_autoload(
-                        $classname, $actionrDir
+                        $actionUpper, $actionDir
                     )
-                ) {
-                    throw new Exception\LoadFailed\Action(
-                        'Could not find action script '. $actionrDir
+                    ) {
+                        throw new Exception\LoadFailed\Action(
+                            'Could not find action script '. $actionDir
+                        );
+                    }
+                }
+                if (!class_exists($classname, false)) {
+                    throw new Exception\LoadFailed\LoadFailed(
+                        'Could not find class '.$classname.
+                        ' in action script '.$actionDir
                     );
                 }
-            }
-            if (!class_exists($classname, false)) {
-                throw new Exception\LoadFailed\LoadFailed(
-                    'Could not find class '.$classname.
-                    ' in action script '.$actionrDir
+                return $classname;
+            } else {
+                throw new Exception\LoadFailed\Action(
+                    'There is no method ' . $action . 'Action in ' . get_class($controller)
                 );
             }
-            $object = new $classname();
-            if (!($object instanceof Action_Abstract)) {
-                throw new Exception\TypeError(
-                    'Action must be an instance of Yaf_Action_Abstract'
-                );
-            }
-            return $object;
         }
         return null;
     }
+    /********************lszzy/yaf-php>>********************/
 
     private function prepareActionParams($request, $methodParams)
     {
@@ -485,11 +529,13 @@ class Dispatcher
                     $controller, $controllerDir
                 )
             ) {
+                /********************lszzy/yaf-php<<********************/
                 throw new Exception\LoadFailed\Controller(
                     'Could not find controller script '.
-                    $controllerDir.DIRECTORY_SEPARATOR.$controller.
+                    $controllerDir.DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $controller).
                     '.'.G::get('ext')
                 );
+                /********************lszzy/yaf-php>>********************/
             }
         }
         if (!class_exists($classname, false)) {
@@ -527,7 +573,9 @@ class Dispatcher
     {
         // we have namespace
         $segments = explode('\\', $unformatted);
-        if ($segments!=null) {
+        /********************lszzy/yaf-php<<********************/
+        if ($segments && count($segments) > 1) {
+        /********************lszzy/yaf-php>>********************/
             foreach ($segments as $key => $segment) {
                 $segment = preg_replace(
                     '/[^a-z0-9 ]/', '', strtolower($segment)
@@ -538,7 +586,9 @@ class Dispatcher
         }
         //we have _
         $segments = explode('_', $unformatted);
-        if ($segments!=null) {
+        /********************lszzy/yaf-php<<********************/
+        if ($segments) {
+        /********************lszzy/yaf-php>>********************/
             foreach ($segments as $key => $segment) {
                 $segment = preg_replace(
                     '/[^a-z0-9 ]/', '', strtolower($segment)
@@ -557,7 +607,9 @@ class Dispatcher
     public function flushInstantly($flag)
     {
         if (!is_bool($flag)) {
-            return ;
+            /********************lszzy/yaf-php<<********************/
+            return $this->_instantly_flush;
+            /********************lszzy/yaf-php>>********************/
         } else {
             $this->_instantly_flush = $flag;
         }

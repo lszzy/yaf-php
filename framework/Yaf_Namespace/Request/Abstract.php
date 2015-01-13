@@ -69,7 +69,7 @@ abstract class Request_Abstract
 
     /**
      * exception
-     * @var string
+     * @var \Exception
      */
     protected $_exception;
 
@@ -115,10 +115,22 @@ abstract class Request_Abstract
         return (isset($_ENV[$name])) ? $_ENV[$name] : $default;
     }
 
+    /********************lszzy/yaf-php<<********************/
+    /**
+     * Set the exception
+     * @todo check if this is OK
+     */
+    public function setException(\Exception $exception)
+    {
+        $this->_exception = $exception;
+        return $this;
+    }
+    /********************lszzy/yaf-php>>********************/
+
     /**
      * Retrieve the exception
      * @todo check if this is OK
-     * @return string
+     * @return \Exception
      */
     public function getException()
     {

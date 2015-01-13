@@ -10,6 +10,23 @@
  */
 namespace Yaf;
 
+/********************lszzy/yaf-php<<********************/
+/**
+ * yaf gloab definitions
+ */
+define('Yaf\VERSION',                   '2.2.9');
+define('Yaf\ERR\STARTUP_FAILED',        512);
+define('Yaf\ERR\ROUTE_FAILED',          513);
+define('Yaf\ERR\DISPATCH_FAILED',       514);
+define('Yaf\ERR\AUTOLOAD_FAILED',       520);
+define('Yaf\ERR\NOTFOUND\MODULE',       515);
+define('Yaf\ERR\NOTFOUND\CONTROLLER',   516);
+define('Yaf\ERR\NOTFOUND\ACTION',       517);
+define('Yaf\ERR\NOTFOUND\VIEW',         518);
+define('Yaf\ERR\CALL_FAILED',           519);
+define('Yaf\ERR\TYPE_ERROR',            521);
+/********************lszzy/yaf-php>>********************/
+
 class G
 {
     protected static $_globals = array(
@@ -41,7 +58,9 @@ class G
         'yaf.cache_config' => false,
         'yaf.st_compatible' => false,
         'yaf.environ' => 'product',
-        'yaf.use_namespace' => false
+        /********************lszzy/yaf-php<<********************/
+        'yaf.use_namespace' => true
+        /********************lszzy/yaf-php>>********************/
     );
 
     public static function iniSet($key, $value)
