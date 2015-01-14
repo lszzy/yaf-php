@@ -22,6 +22,7 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 
 	1. implements of Yaf_Config_Ini::get with separator '.', such as 'a.b.c', same as yaf 2.2.9
 	2. implements of sample application and sample code
+	3. implements of Yaf_View_Simple::eval with magic method __call
 
 ## About
 Document: http://yaf.laruence.com/manual/index.html  
@@ -53,6 +54,7 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 
 	1. Yaf_Config_Ini::get支持'.'分隔符获取，如'a.b.c'，兼容yaf 2.2.9
 	2. 编写sample应用和示例代码
+	3. 实现了Yaf_View_Simple::eval，使用php魔术方式__call
 
 ## 关于
 官方文档：http://yaf.laruence.com/manual/index.html  

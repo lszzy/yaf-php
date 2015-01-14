@@ -155,6 +155,20 @@ class Yaf_View_Simple implements Yaf_View_Interface
         return $this->_run($tpl_content, $vars, true);
     }
 
+    /********************lszzy/yaf-php<<********************/
+    public function __call($name, $arguments)
+    {
+        switch (strtolower($name)) {
+            case 'eval':
+                return $this->evaluate($arguments[0], isset($arguments[1]) ? $arguments[1] : array());
+            default:
+                throw new Yaf_Exception(
+                    'Call to undefined method ' . get_class($this) . '::' . $name . '()'
+                );
+        }
+    }
+    /********************lszzy/yaf-php>>********************/
+
     /**
      * return the assigned template variable
      *
@@ -290,7 +304,9 @@ class Yaf_View_Simple implements Yaf_View_Interface
         }
         ob_start();
         if ($useEval == true) {
-            eval('?>'.$template.'<?');
+            /********************lszzy/yaf-php<<********************/
+            eval('?>'.$template);
+            /********************lszzy/yaf-php>>********************/
         } else {
             include($template);
         }
