@@ -113,10 +113,12 @@ abstract class Yaf_Response_Abstract
         echo $this->_body;
     }
 
-    private function setAllHeaders()
+    /********************lszzy/yaf-php<<********************/
+    public function setAllHeaders()
     {
-        //did not found what should this do
+        return false;
     }
+    /********************lszzy/yaf-php>>********************/
     /**
      * Set body content
      *
