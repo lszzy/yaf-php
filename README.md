@@ -1,4 +1,4 @@
-# yaf-php
+## Introduction
 The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport), in order to fit yaf 2.2.9 better
 
 ## Changelog
@@ -23,26 +23,26 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 	1. implements of Yaf_Config_Ini::get with separator '.' such as 'a.b.c', same as yaf 2.2.9
 
 
-## ½éÉÜ
-php°æ±¾µÄ[yaf](pecl.php.net/package/yaf)£¬ĞŞ¸Ä×Ô [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)£¬Ä¿µÄÊÇ¸üºÃµÄ¼æÈİyaf 2.29
+## ä¸­æ–‡ä»‹ç»
+phpç‰ˆæœ¬çš„[yaf](pecl.php.net/package/yaf)ï¼Œä¿®æ”¹è‡ª [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)ï¼Œç›®çš„æ˜¯æ›´å¥½çš„å…¼å®¹yaf 2.29
 
-## ¸üĞÂÈÕÖ¾
+## æ›´æ–°æ—¥å¿—
 2015-01-12:
 
-	1. ¸´ÖÆ´úÂë [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport) 
+	1. å¤åˆ¶ä»£ç  [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport) 
 
 2015-01-13:
 
-	1. loader.phpÎÄ¼şÒÆ³ıÁËAPPLICATION_PATH³£Á¿£¬²¢¼æÈİphp 5.2°æ±¾
-	2. Ìí¼ÓÁËYaf¿ò¼ÜYAF_VERSION, YAF_ENVIRON, YAF_ERR_STARTUP_FAILEDµÈ³£Á¿
-	3. ÊµÏÖÁËyaf 2.2.9°æ±¾µÄactionµ÷ÓÃ»úÖÆ
-	4. ÊµÏÖÁËyaf 2.2.9°æ±¾µÄcatchException´íÎó²¶»ñ»úÖÆ£¬Ìø×ªError ControllerºÍerror Action´¦Àí
-	5. ÊµÏÖÁËYaf_Request_Abstract::getExceptionºÍgetParam('exception')
-	6. Yaf_Dispatcher::autoRenderºÍflushInstantlyÈç¹û²ÎÊıÎªnullÄ¬ÈÏ·µ»Øµ±Ç°×´Ì¬
-	7. G.phpÎÄ¼şĞŞÕıÁËphp 5.2°æ±¾ini_getÈç¹ûÅäÖÃÏî²»´æÔÚ·µ»Ø¿Õ×Ö·û´®¶ø²»ÊÇfalseµ¼ÖÂµÄbug
-	8. ĞŞ¸ÄÁËview¿ÉÒÔäÖÈ¾ÉÏ²ãÄ¿Â¼µÄtplÎÄ¼ş£¬¼æÈİyaf 2.2.9
-	9. ÆäËüÒ»Ğ©bugĞŞÕı
+	1. loader.phpæ–‡ä»¶ç§»é™¤äº†APPLICATION_PATHå¸¸é‡ï¼Œå¹¶å…¼å®¹php 5.2ç‰ˆæœ¬
+	2. æ·»åŠ äº†Yafæ¡†æ¶YAF_VERSION, YAF_ENVIRON, YAF_ERR_STARTUP_FAILEDç­‰å¸¸é‡
+	3. å®ç°äº†yaf 2.2.9ç‰ˆæœ¬çš„actionè°ƒç”¨æœºåˆ¶
+	4. å®ç°äº†yaf 2.2.9ç‰ˆæœ¬çš„catchExceptioné”™è¯¯æ•è·æœºåˆ¶ï¼Œè·³è½¬Error Controllerå’Œerror Actionå¤„ç†
+	5. å®ç°äº†Yaf_Request_Abstract::getExceptionå’ŒgetParam('exception')
+	6. Yaf_Dispatcher::autoRenderå’ŒflushInstantlyå¦‚æœå‚æ•°ä¸ºnullé»˜è®¤è¿”å›å½“å‰çŠ¶æ€
+	7. G.phpæ–‡ä»¶ä¿®æ­£äº†php 5.2ç‰ˆæœ¬ini_getå¦‚æœé…ç½®é¡¹ä¸å­˜åœ¨è¿”å›ç©ºå­—ç¬¦ä¸²è€Œä¸æ˜¯falseå¯¼è‡´çš„bug
+	8. ä¿®æ”¹äº†viewå¯ä»¥æ¸²æŸ“ä¸Šå±‚ç›®å½•çš„tplæ–‡ä»¶ï¼Œå…¼å®¹yaf 2.2.9
+	9. å…¶å®ƒä¸€äº›bugä¿®æ­£
 
 2015-01-14:
 
-	1. Yaf_Config_Ini::getÖ§³Ö'.'·Ö¸ô·û»ñÈ¡£¬Èç'a.b.c'£¬¼æÈİyaf 2.2.9
+	1. Yaf_Config_Ini::getæ”¯æŒ'.'åˆ†éš”ç¬¦è·å–ï¼Œå¦‚'a.b.c'ï¼Œå…¼å®¹yaf 2.2.9
