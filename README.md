@@ -4,25 +4,26 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 ## Changelog
 2015-01-12:
 
-	1. forked from https://github.com/mzsolti/yaf-phpport
+	1. Forked from https://github.com/mzsolti/yaf-phpport
 
 2015-01-13:
 
-	1. loader.php fix bug for php 5.2 and remove APPLICATION_PATH
-	2. add Yaf constants YAF_VERSION, YAF_ENVIRON, YAF_ERR_STARTUP_FAILED etc...
-	3. implements of usage of action like yaf 2.2.9
-	4. implements of catchException with Error Controller and error Action like yaf 2.2.9
-	5. implements of Yaf_Request_Abstract::getException and getParam('exception')
+	1. Fix bug in loader.php for php 5.2 and remove APPLICATION_PATH
+	2. Add Yaf constants YAF_VERSION, YAF_ENVIRON, YAF_ERR_STARTUP_FAILED etc...
+	3. Implemented usage of action like yaf 2.2.9
+	4. Implemented catchException with Error Controller and error Action like yaf 2.2.9
+	5. Implemented Yaf_Request_Abstract::getException and getParam('exception')
 	6. Yaf_Dispatcher::autoRender,flushInstantly return current state if parameter is null
 	7. G.php fix a bug that php 5.2 ini_get return '' if not found
-	8. view can render tpl in parent dir, same as yaf 2.2.9
-	9. fixed a lot of bug
+	8. View can render tpl in parent dir, same as yaf 2.2.9
+	9. Fixed a lot of bug
 
 2015-01-14:
 
-	1. implements of Yaf_Config_Ini::get with separator '.', such as 'a.b.c', same as yaf 2.2.9
-	2. implements of sample application and sample code
-	3. implements of Yaf_View_Simple::eval with magic method __call
+	1. Implemented Yaf_Config_Ini::get with separator '.', such as 'a.b.c', same as yaf 2.2.9
+	2. Implemented sample application and sample code
+	3. Implemented Yaf_View_Simple::eval with magic method __call
+	4. Implemented Yaf_Response::setBody,getBody,clearBody,prependBody,appendBody with key, same as yaf 2.2.9
 
 ## About
 Document: http://yaf.laruence.com/manual/index.html  
@@ -55,6 +56,7 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 	1. Yaf_Config_Ini::get支持'.'分隔符获取，如'a.b.c'，兼容yaf 2.2.9
 	2. 编写sample应用和示例代码
 	3. 实现了Yaf_View_Simple::eval，使用php魔术方式__call
+	4. Yaf_Response::setBody,getBody,clearBody,prependBody,appendBody增加key参数，兼容yaf 2.2.9
 
 ## 关于
 官方文档：http://yaf.laruence.com/manual/index.html  

@@ -13,11 +13,17 @@ namespace Yaf;
 
 abstract class Response_Abstract
 {
+    /********************lszzy/yaf-php<<********************/
+    /**
+     * Default body name
+     */
+    const DEFAULT_BODY = 'content';
+
     /**
      * Body content
      * @var array
      */
-    protected $_body = '';
+    protected $_body = array();
 
     /**
      * Array of headers. Each header is an array with keys 'name' and 'value'
@@ -35,22 +41,36 @@ abstract class Response_Abstract
      * Append content to the body content
      *
      * @param string $content
+     * @param string $key
      * @return Yaf_Response_Abstract
      */
-    public function appendBody($body)
+    public function appendBody($body, $key = NULL)
     {
-        $this->_body .= (string) $body;
+        if (!strlen($key)) {
+            $key = self::DEFAULT_BODY;
+        }
+        if (!isset($this->_body[$key])) {
+            $this->_body[$key] = '';
+        }
+        $this->_body[$key] .= (string) $body;
         return $this;
     }
 
     /**
      * Clear the entire body
      *
+     * @param string $key
      * @return boolean
      */
-    public function clearBody()
+    public function clearBody($key = NULL)
     {
-        $this->_body = '';
+        if (strlen($key)) {
+            if (array_key_exists($key, $this->_body)) {
+                unset($this->_body[$key]);
+            }
+        } else {
+            $this->_body = array();
+        }
         return true;
     }
 
@@ -77,15 +97,21 @@ abstract class Response_Abstract
     public function __destruct()
     {
     }
+
     /**
      * Return the body content
      *
+     * @param string $key
      * @return string
      */
-    public function getBody()
+    public function getBody($key = NULL)
     {
-        return $this->_body;
+        if (!strlen($key)) {
+            $key = self::DEFAULT_BODY;
+        }
+        return array_key_exists($key, $this->_body) ? $this->_body[$key] : null;
     }
+
     /**
      * Return array of headers; see {@link $_headers} for format
      *
@@ -95,17 +121,26 @@ abstract class Response_Abstract
     {
         return $this->_headers;
     }
+
     /**
      * Prepend content the body
      *
      * @param string $body
+     * @param string $key
      * @return Yaf_Response_Abstract
      */
-    public function prependBody($body)
+    public function prependBody($body, $key = null)
     {
-        $this->_body = $body . $this->_body;
+        if (!strlen($key)) {
+            $key = self::DEFAULT_BODY;
+        }
+        if (!isset($this->_body[$key])) {
+            $this->_body[$key] = '';
+        }
+        $this->_body[$key] = $body . $this->_body[$key];
         return $this;
     }
+
     /**
      * Send the response, including all headers
      *
@@ -116,26 +151,31 @@ abstract class Response_Abstract
         if ($this->_sendheader == true) {
             $this->sendHeaders();
         }
-        echo $this->_body;
+        foreach ($this->_body as $key => $body) {
+            echo $body;
+        }
     }
 
-    /********************lszzy/yaf-php<<********************/
     public function setAllHeaders()
     {
         return false;
     }
-    /********************lszzy/yaf-php>>********************/
     /**
      * Set body content
      *
      * @param string $body
+     * @param string $key
      * @return Yaf_Response_Abstract
      */
-    public function setBody($body)
+    public function setBody($body, $key = NULL)
     {
-        $this->_body = (string) $body;
+        if (!strlen($key)) {
+            $key = self::DEFAULT_BODY;
+        }
+        $this->_body[$key] = (string) $body;
         return $this;
     }
+    /********************lszzy/yaf-php>>********************/
 
     /**
      * Set a header
