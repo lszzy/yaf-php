@@ -99,6 +99,7 @@ class Ini extends Simple
         }
     }
 
+    /********************lszzy/yaf-php<<********************/
     /**
      * Retrieve a value and return null if there is no element set.
      *
@@ -108,18 +109,36 @@ class Ini extends Simple
      */
     public function get ($name)
     {
-        if ($name == null) {
-            return false;
+        //return this if null or empty string, same as yaf
+        if (!strlen($name)) {
+            return $this;
         }
+
         $result = null;
-        if (array_key_exists($name, $this->_config)) {
-            $result = $this->_config[$name];
+        //check if name contains '.'
+        if (strpos($name, '.') !== false) {
+            $result = $this->_config;
+            $names  = explode('.', $name);
+            foreach ($names as $name) {
+                //use isset, not array_key_exists, because result may be Yaf_Config_Simple
+                if (isset($result[$name])) {
+                    $result = $result[$name];
+                } else {
+                    $result = null;
+                    break;
+                }
+            }
+        } else {
+            if (array_key_exists($name, $this->_config)) {
+                $result = $this->_config[$name];
+            }
         }
         if (is_array($result)) {
             $result = new self($result, $this->readonly());
         }
         return $result;
     }
+    /********************lszzy/yaf-php>>********************/
 
     /**
      * Load the INI file from disk using parse_ini_file().
