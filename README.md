@@ -24,6 +24,9 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 	2. Implemented sample application and sample code
 	3. Implemented Yaf_View_Simple::eval with magic method __call
 	4. Implemented Yaf_Response::setBody,getBody,clearBody,prependBody,appendBody with key, same as yaf 2.2.9
+	5. Yaf_Dispatcher::dispatch replace Yaf_Response_Abstract::setBody with appendBody, same as yaf 2.2.9
+	6. Yaf_Dispatcher::dispatch will auto clear body after response send if returnResponse off, same as yaf 2.2.9
+	7. Yaf_Dispatcher::dispatch will auto response and clear body when catchException with Error Controller and error Action, same as yaf 2.2.9
 
 ## About
 Document: http://yaf.laruence.com/manual/index.html  
@@ -57,6 +60,9 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 	2. 编写sample应用和示例代码
 	3. 实现了Yaf_View_Simple::eval，使用php魔术方式__call
 	4. Yaf_Response::setBody,getBody,clearBody,prependBody,appendBody增加key参数，兼容yaf 2.2.9
+	5. Yaf_Dispatcher::dispatch替换Yaf_Response_Abstract::setBody为appendBody，兼容yaf 2.2.9
+	6. Yaf_Dispatcher::dispatch在returnResponse关闭时，response响应完成后将会自动清除body，兼容yaf 2.2.9
+	7. Yaf_Dispatcher::dispatch在catchException开启时，执行Error Controller和error Action时会自动响应并清空body，兼容yaf 2.2.9
 
 ## 关于
 官方文档：http://yaf.laruence.com/manual/index.html  

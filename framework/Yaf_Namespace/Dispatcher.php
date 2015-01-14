@@ -224,6 +224,10 @@ class Dispatcher
                         $request->setParam('exception', $e);
                         $request->setException($e);
                         $this->handle($request, $response, $view);
+                        //auto response
+                        $response->response();
+                        $response->clearBody();
+                        return false;
                     } catch (\Exception $em) {
                         //do nothing, goto default module
                     }
@@ -236,6 +240,10 @@ class Dispatcher
                     $request->setParam('exception', $e);
                     $request->setException($e);
                     $this->handle($request, $response, $view);
+                    //auto response
+                    $response->response();
+                    $response->clearBody();
+                    return false;
                 } catch (\Exception $em) {
                     //Throw original exception
                     if ($this->throwException()) {
@@ -260,6 +268,9 @@ class Dispatcher
         }
         if ($this->returnResponse() == false) {
             $response->response();
+            /********************lszzy/yaf-php<<********************/
+            $response->clearBody();
+            /********************lszzy/yaf-php>>********************/
         }
 
         return $response;
@@ -391,7 +402,9 @@ class Dispatcher
                 $controller->display($action);
             } else {
                 $ret = $controller->render($action);
-                $response->setBody($ret);
+                /********************lszzy/yaf-php<<********************/
+                $response->appendBody($ret);
+                /********************lszzy/yaf-php>>********************/
             }
         }
         $controller = null;
