@@ -4,7 +4,7 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 ## Changelog
 2015-01-12:
 
-	1. forked from [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)
+	1. forked from https://github.com/mzsolti/yaf-phpport
 
 2015-01-13:
 
@@ -20,12 +20,12 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 
 2015-01-14:
 
-	1. implements of Yaf_Config_Ini::get with separator '.' such as 'a.b.c', same as yaf 2.2.9
+	1. implements of Yaf_Config_Ini::get with separator '.', such as 'a.b.c', same as yaf 2.2.9
 
 ## About
-Document: (http://yaf.laruence.com/manual/index.html)  
-Yaf: (http://pecl.php.net/package/yaf)  
-Author: (http://www.lszzy.com)  
+Document: http://yaf.laruence.com/manual/index.html  
+Yaf: http://pecl.php.net/package/yaf  
+Author: http://www.lszzy.com  
 
 
 ## 介绍
@@ -34,7 +34,7 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 ## 更新日志
 2015-01-12:
 
-	1. 复制代码 [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport) 
+	1. 复制代码 https://github.com/mzsolti/yaf-phpport
 
 2015-01-13:
 
@@ -53,6 +53,6 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 	1. Yaf_Config_Ini::get支持'.'分隔符获取，如'a.b.c'，兼容yaf 2.2.9
 
 ## 关于
-官方文档：(http://yaf.laruence.com/manual/index.html)  
-Yaf：(http://pecl.php.net/package/yaf)  
-个人主页：(http://www.lszzy.com)  
+官方文档：http://yaf.laruence.com/manual/index.html  
+Yaf：http://pecl.php.net/package/yaf  
+个人主页：http://www.lszzy.com  
