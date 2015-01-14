@@ -348,12 +348,12 @@ class Dispatcher
             ) != null
         ) {
             $actionController = new $actionName($request, $response, $view);
-            $actionController->setController($controller);
             if (!($actionController instanceof Action_Abstract)) {
                 throw new Exception\TypeError(
                     'Action must be an instance of Yaf_Action_Abstract'
                 );
             }
+            $actionController->setController($controller);
             /********************lszzy/yaf-php>>********************/
             //check if not in actions vars we have the action
             $actionMethod = 'execute';
