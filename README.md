@@ -1,5 +1,5 @@
 ## Introduction
-The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport), in order to fit yaf 2.2.9 better
+The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport), in order to fit yaf 2.2.9 better, thanks to the original author
 
 ## Changelog
 2015-01-12:
@@ -35,7 +35,7 @@ Author: http://www.lszzy.com
 
 
 ## 介绍
-php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)，目的是更好的兼容yaf 2.2.9
+php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)，目的是更好的兼容yaf 2.2.9，在此感谢原作者
 
 ## 更新日志
 2015-01-12:
