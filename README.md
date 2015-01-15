@@ -35,7 +35,7 @@ Author: http://www.lszzy.com
 
 
 ## 介绍
-php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)，目的是更好的兼容yaf 2.29
+php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](https://github.com/mzsolti/yaf-phpport)，目的是更好的兼容yaf 2.2.9
 
 ## 更新日志
 2015-01-12:
