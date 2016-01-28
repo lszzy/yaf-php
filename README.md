@@ -67,4 +67,4 @@ php版本的[yaf](pecl.php.net/package/yaf)，修改自 [mzsolti/yaf-phpport](ht
 ## 关于
 官方文档：http://yaf.laruence.com/manual/index.html  
 Yaf：http://pecl.php.net/package/yaf  
-个人主页：http://www.lszzy.com  
+个人主页：http://www.ocphp.com  
