@@ -31,7 +31,7 @@ The php implements of [yaf](pecl.php.net/package/yaf), forked from [mzsolti/yaf-
 ## About
 Document: http://yaf.laruence.com/manual/index.html  
 Yaf: http://pecl.php.net/package/yaf  
-Author: http://www.lszzy.com  
+Author: http://www.ocphp.com  
 
 
 ## 介绍
